@@ -20,7 +20,7 @@ public class DijkstraAlgorithm {
     private static int solmujenLkm;
     private static int aloitusSolmu;
     private static int [] [] vierus ;
-    private static double [] distance ;
+    private static int [] distance ;
     private static int [] path ;
     
     
@@ -81,40 +81,61 @@ public class DijkstraAlgorithm {
             System.out.println();
         }
     }
-            
+    
             
     public static void initializeSingleSource(int solmujenLkm,int aloitusSolmu) {
-        distance = new double [--solmujenLkm];
+        distance = new int [--solmujenLkm];
         path = new int [--solmujenLkm];
         for (int v = 0; v < solmujenLkm; v++) {
-            distance[v] = Double.POSITIVE_INFINITY;
+            distance[v] = Integer.MAX_VALUE;
         }
         distance[--aloitusSolmu] = 0;
     }
     
-    /*
-    public static String tulostaPolut() {
-        
+    public static void relax (int u, int v, int w) {
+        if (distance[v] > distance[u] + vierus [u] [v]) {
+            distance [v] = distance [u] + vierus [u] [v];
+            path[v] = u;
+        }
+                
+    }
+     
+    public static void tulostaPolut() {
+        for (int i=0;i<solmujenLkm;i++) {
+            int u = path[i];
+            Stack p = new Stack(100);
+            while (u != aloitusSolmu) {
+                p.push(u);
+                u = path[u];
+            }
+            System.out.println("Lyhin polku aloitussolmusta solmuun " + i + "kulkee seuraavien solmujen kautta:");
+            while (!p.isEmpty()) {
+                u = p.pop();
+                System.out.println("u");
+            }
+        }
+       
         
     }
-    */
+    
     public static void main(String[] args) {
         lueTiedosto();
         initializeSingleSource(solmujenLkm,aloitusSolmu);
-  /*
-        minHeap H = new heap minHeap;
+  
+        MinHeap h = new MinHeap(solmujenLkm);
         for (int i=0;i<solmujenLkm;i++) {
-            H.insert(vierus [i] [0], distance[i]);
+            h.insert(vierus [i] [0], distance[i]);
         }
-        while(H.notEmpty) {
-            u = H.heap-del-min;
+        int u;
+        while(!(h.isEmpty())) {
+            u = h.removemin();
             for (int j=0; j<solmujenLkm;j++) {
                 relax(u,j,vierus[u] [j]);
-                H.heap-decrease-key(j, distance[j]);
+                h.decreaseKey(j, distance[j]);
             }
         }
        
         tulostaPolut();
-    */
+    
     }
 }
