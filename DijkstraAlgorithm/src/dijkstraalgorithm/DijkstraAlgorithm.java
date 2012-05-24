@@ -89,7 +89,7 @@ public class DijkstraAlgorithm {
         for (int v = 0; v < solmujenLkm; v++) {
             distance[v] = Integer.MAX_VALUE;
         }
-        distance[--aloitusSolmu] = 0;
+        distance[aloitusSolmu--] = 0;
     }
     
     public static void relax (int u, int v, int w) {
@@ -103,8 +103,9 @@ public class DijkstraAlgorithm {
     public static void tulostaPolut() {
         for (int i=0;i<solmujenLkm;i++) {
             int u = path[i];
-            Stack p = new Stack(100);
+            Stack p = new Stack(10);
             while (u != aloitusSolmu) {
+                System.out.println("u = " + u);
                 p.push(u);
                 u = path[u];
             }
@@ -126,6 +127,7 @@ public class DijkstraAlgorithm {
         for (int i=0;i<solmujenLkm;i++) {
             h.insert(i, distance[i]);
         }
+        h.print();
         int u;
         while(!(h.isEmpty())) {
             u = h.removemin();

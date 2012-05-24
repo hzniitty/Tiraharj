@@ -63,7 +63,10 @@ public class MinHeap {
 	while (Heap[current] < Heap[parent(current)]) {
 	    swap(current, parent(current));
 	    current = parent(current);
-	}	
+	}
+        for (int i=0;i<=size;i++) {
+        System.out.println(" heap " + Heap[i]);
+        }
     }
     
 // decrease the key associated with index k
@@ -77,27 +80,33 @@ public class MinHeap {
      private void heapify(int k)  {
         int l = leftchild(k);
         int r = rightchild(k);
-        int largest = 0;
-        if (r <= size) {
-           if (Heap[l] > Heap [r])
-                   largest = l;
-           else largest = r;
-           if (Heap[k] < Heap[largest]) {
-               int a = Heap[k];int b = Heap[largest];
-               Heap[k] = b; Heap[largest] = a;
-               heapify(largest);
-           } 
-           else if (l == size && Heap[k] < Heap[l]) {
-               int a = Heap[k];int b = Heap[l];
-               Heap[k] = b; Heap[largest] = a;
-           }
+        int smallest = 0;
+        if (l <= size && Heap[l] < Heap [k])
+            smallest = l;
+        else smallest = k;
+        if (r <= size && Heap[r] < Heap[smallest]) 
+            smallest = r;
+        if (smallest != k ) {
+            swap(Heap[k],Heap[smallest]);
         }
+    }
+     
+     private void pushdown(int position) {
+	int smallestchild;
+	while (!isleaf(position)) {
+	    smallestchild = leftchild(position);
+	    if ((smallestchild < size) && (Heap[smallestchild] > Heap[smallestchild+1]))
+		smallestchild = smallestchild + 1;
+	    if (Heap[position] <= Heap[smallestchild]) return;
+	    swap(position,smallestchild);
+	    position = smallestchild;
+	}
     }
     
     public void print() {
 	int i;
 	for (i=1; i<=size;i++)
-	    System.out.print(Heap[i] + " ");
+	    System.out.print("Solmu " + Heap[i] + " Distance " + keys[i]);
 	System.out.println();
     }
 
@@ -109,15 +118,5 @@ public class MinHeap {
 	return Heap[size+1];
     }
 
-    private void pushdown(int position) {
-	int smallestchild;
-	while (!isleaf(position)) {
-	    smallestchild = leftchild(position);
-	    if ((smallestchild < size) && (Heap[smallestchild] > Heap[smallestchild+1]))
-		smallestchild = smallestchild + 1;
-	    if (Heap[position] <= Heap[smallestchild]) return;
-	    swap(position,smallestchild);
-	    position = smallestchild;
-	}
-    }
+    
 }
