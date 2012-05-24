@@ -84,8 +84,8 @@ public class DijkstraAlgorithm {
     
             
     public static void initializeSingleSource(int solmujenLkm,int aloitusSolmu) {
-        distance = new int [--solmujenLkm];
-        path = new int [--solmujenLkm];
+        distance = new int [solmujenLkm];
+        path = new int [solmujenLkm];
         for (int v = 0; v < solmujenLkm; v++) {
             distance[v] = Integer.MAX_VALUE;
         }
@@ -122,14 +122,15 @@ public class DijkstraAlgorithm {
         lueTiedosto();
         initializeSingleSource(solmujenLkm,aloitusSolmu);
   
-        MinHeap h = new MinHeap(solmujenLkm);
+        MinHeap h = new MinHeap(solmujenLkm + 1);
         for (int i=0;i<solmujenLkm;i++) {
-            h.insert(vierus [i] [0], distance[i]);
+            h.insert(i, distance[i]);
         }
         int u;
         while(!(h.isEmpty())) {
             u = h.removemin();
             for (int j=0; j<solmujenLkm;j++) {
+                System.out.println("u, j" + u + " " + j);
                 relax(u,j,vierus[u] [j]);
                 h.decreaseKey(j, distance[j]);
             }
