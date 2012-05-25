@@ -21,8 +21,9 @@ public class MinHeap {
     private int[] keys;
 
     public MinHeap(int max) {
-	maxsize = max;
-	Heap = new int[maxsize];
+//	maxsize = max;
+//	Heap = new int[maxsize];
+	Heap = new int[max];
 	size = 0 ;
 	Heap[0] = Integer.MIN_VALUE;
         keys = new int[max];
@@ -73,7 +74,7 @@ public class MinHeap {
     public void decreaseKey(int key, int newkey) {
         if ( newkey <= Heap[key]) {
             Heap[key] = newkey;
-            heapify(Heap[key]);
+            pushdown(Heap[key]);
         }
     }
     
@@ -88,6 +89,7 @@ public class MinHeap {
             smallest = r;
         if (smallest != k ) {
             swap(Heap[k],Heap[smallest]);
+            heapify(smallest);
         }
     }
      
@@ -105,17 +107,19 @@ public class MinHeap {
     
     public void print() {
 	int i;
-	for (i=1; i<=size;i++)
+	for (i=1; i<=size;i++) {
 	    System.out.print("Solmu " + Heap[i] + " Distance " + keys[i]);
-	System.out.println();
+            System.out.println();
+        }
     }
 
     public int removemin() {
-	swap(1,size);
+	int min = Heap[1];
+        Heap[1] = Heap[size];
 	size--;
 	if (size != 0)
 	    pushdown(1);
-	return Heap[size+1];
+	return min;
     }
 
     
