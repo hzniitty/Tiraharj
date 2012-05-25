@@ -66,7 +66,7 @@ public class MinHeap {
 	    current = parent(current);
 	}
         for (int i=0;i<=size;i++) {
-        System.out.println(" heap " + Heap[i]);
+   //     System.out.println(" heap " + Heap[i]);
         }
     }
     

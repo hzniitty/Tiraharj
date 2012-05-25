@@ -70,13 +70,12 @@ public class DijkstraAlgorithm {
     catch(Exception ex) {
         System.out.println("Tiedostoa ei loydy" + ex);
     }
-    tulostaVierus(vierus);
     }
     
-    public static void tulostaVierus(int [][] matriisi) {
-        for (int rivi=0;rivi<matriisi.length;++rivi) {
-            for (int sarake=0;sarake<matriisi[rivi].length;++sarake) {
-                System.out.print(matriisi[rivi][sarake] + "\t");
+    public static void tulostaVierus() {
+        for (int rivi=0;rivi<vierus.length;++rivi) {
+            for (int sarake=0;sarake<vierus[rivi].length;++sarake) {
+                System.out.print(vierus[rivi][sarake] + "\t");
             }
             System.out.println();
         }
@@ -118,16 +117,16 @@ public class DijkstraAlgorithm {
      
     public static void tulostaPolut() {
         tulostaPath();
+        Stack p = new Stack(10);
         for (int i=0;i<solmujenLkm;i++) {
             int u = path[i];
-            Stack p = new Stack(10);
             if (u != aloitusSolmu) {
                 System.out.println("u = " + u);
                 p.push(u);
                 u = path[u];
             }
         
-        System.out.println("Lyhin polku solmusta " + i + "aloitussolmuun kulkee seuraavien solmujen kautta:");
+        System.out.println("Lyhin polku aloitussolmusta " + aloitusSolmu + " solmuun " + i + "kulkee seuraavien solmujen kautta:");
         while (!p.isEmpty()) {
            u = p.pop();
            System.out.println(u);
@@ -136,14 +135,19 @@ public class DijkstraAlgorithm {
     }
     
     public static void main(String[] args) {
+        // luetaan syötetiedosto
         lueTiedosto();
+        tulostaVierus();
+        // kaikille solmuille
         initializeSingleSource(solmujenLkm,aloitusSolmu);
-  
+        // Minimikeon luonti, indeksi alkaa 1:stä
         MinHeap h = new MinHeap(solmujenLkm+1);
+        // Viedään kekoon solmujen alkuarvot
         for (int i=1;i<=solmujenLkm;i++) {
             h.insert(i, distance[i-1]);
         }
-   //     h.print();
+        h.print();
+        
         int u;
         while(!(h.isEmpty())) {
             u = h.removemin();
@@ -155,9 +159,10 @@ public class DijkstraAlgorithm {
                     h.decreaseKey(j, distance[j]);
                 }
             }
+            tulostaPolut();
         }
        
-        tulostaPolut();
+        
     
     }
 }
