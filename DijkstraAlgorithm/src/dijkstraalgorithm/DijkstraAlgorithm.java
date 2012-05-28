@@ -35,13 +35,8 @@ public class DijkstraAlgorithm {
         while(scan.hasNext()) {
             // System.out.println("eka");
             String rivi = scan.nextLine();
-            //tarkistukset
-            // ohitetaan kommentit ja tyhjät rivit
-            // ilmoitetaan virheestä, jos rivillä jotain väärää
-            // 1. merkitsevällä oltava solmujen lkm
-            // 2. merkitsevällä rivillä oltava aloitussolmu
-            // seuraavien rivien syntaksi oltava oikein
-            // tarkista rivin vaihto lopussa
+            //tarkistukset tähän
+            
             if (rivi.startsWith("solmujen_lukumaara")) {
                 rivisplit = rivi.split("=");
                 solmujenLkm = Integer.parseInt(rivisplit [1]);
@@ -106,19 +101,21 @@ public class DijkstraAlgorithm {
     public static void relax (int u, int v, int w) {
         
         System.out.println("u, v, w " + u + " " + v + " " + w);
-        tulostaDistance();
+       //  tulostaDistance();
         if (distance[v] > distance[u] + vierus [u] [v]) {
             distance [v] = distance [u] + vierus [u] [v];
             path[v] = u;
-            tulostaPath();
+       //     tulostaPath();
         }
         tulostaDistance();   
     }
      
     public static void tulostaPolut() {
         tulostaPath();
-        Stack p = new Stack(10);
-        for (int i=0;i<solmujenLkm;i++) {
+        
+        for (int i=1;i<solmujenLkm;i++) {
+            Stack p = new Stack(10);
+            // tähän looppi
             int u = path[i];
             if (u != aloitusSolmu) {
                 System.out.println("u = " + u);
@@ -138,31 +135,34 @@ public class DijkstraAlgorithm {
         // luetaan syötetiedosto
         lueTiedosto();
         tulostaVierus();
-        // kaikille solmuille
+        // kaikille solmuille distance -> Max-value, paitsi aloitussolmu distance = 0
+        // kaikille solmuille path = null
         initializeSingleSource(solmujenLkm,aloitusSolmu);
         // Minimikeon luonti, indeksi alkaa 1:stä
         MinHeap h = new MinHeap(solmujenLkm+1);
-        // Viedään kekoon solmujen alkuarvot
+        // Viedään kekoon solmut distance-arvon mukaan
         for (int i=1;i<=solmujenLkm;i++) {
             h.insert(i, distance[i-1]);
         }
         h.print();
-        
+        // käsitellään solmut keosta
         int u;
         while(!(h.isEmpty())) {
+            // haetaan keosta distance arvon mukaan pienin
             u = h.removemin();
             h.print();
             // kaikille u:n vierussolmuille 
             for (int j=0; j<solmujenLkm;j++) {
                 if (vierus [u-1][j] != 0) {
                     relax(u-1,j,vierus[u-1] [j]);
+                    // järjestetään keko uudelleen
                     h.decreaseKey(j, distance[j]);
                 }
             }
-            tulostaPolut();
+            
         }
        
-        
+        tulostaPolut();
     
     }
 }
