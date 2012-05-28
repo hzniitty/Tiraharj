@@ -11,8 +11,8 @@ package dijkstraalgorithm;
  * @author fi72031
  */
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+// import java.util.Iterator;
+// import java.util.NoSuchElementException;
 
 public class MinHeap {
     private int[] Heap;
@@ -60,16 +60,33 @@ public class MinHeap {
 	size++;
 	Heap[size] = elem;
         int current = size;
+  //      keys[elem] = key;
+	while (Heap[current] < Heap[parent(current)]) {
+	    swap(current, parent(current));
+	    current = parent(current);
+	}
+   //     for (int i=0;i<=size;i++) {
+   //     System.out.println(" heap " + Heap[i]);
+   //     }
+    }
+    
+    
+    /*
+        public void insert(int elem, int key) {
+	size++;
+	Heap[size] = elem;
+        int current = size;
         keys[elem] = key;
 	while (Heap[current] < Heap[parent(current)]) {
 	    swap(current, parent(current));
 	    current = parent(current);
 	}
-        for (int i=0;i<=size;i++) {
+   //     for (int i=0;i<=size;i++) {
    //     System.out.println(" heap " + Heap[i]);
-        }
+   //     }
     }
     
+        */
 // decrease the key associated with index k
     public void decreaseKey(int key, int newkey) {
         if ( newkey <= Heap[key]) {

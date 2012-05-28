@@ -140,23 +140,29 @@ public class DijkstraAlgorithm {
         initializeSingleSource(solmujenLkm,aloitusSolmu);
         // Minimikeon luonti, indeksi alkaa 1:stä
         MinHeap h = new MinHeap(solmujenLkm+1);
-        // Viedään kekoon solmut distance-arvon mukaan
-        for (int i=1;i<=solmujenLkm;i++) {
-            h.insert(i, distance[i-1]);
+        // Viedään kekoon solmut distance-arvon mukaan eli aloitussolmu ekaksi
+        // ja muut sen jälkeen (muissa distance = max_value)
+        for (int i=0;i<solmujenLkm;i++) {
+       //     h.insert(i, distance[i-1]);
+            h.insert(distance[i], i);
         }
+        System.out.println("Keko luonnin jälkeen");
         h.print();
         // käsitellään solmut keosta
         int u;
         while(!(h.isEmpty())) {
-            // haetaan keosta distance arvon mukaan pienin
+            // haetaan ja poistetaan keosta pienin (distance arvon mukaan) eli 
+            // eka alkio
             u = h.removemin();
+            System.out.println("Keko pienimmän poiston jälkeen");
             h.print();
             // kaikille u:n vierussolmuille 
             for (int j=0; j<solmujenLkm;j++) {
-                if (vierus [u-1][j] != 0) {
-                    relax(u-1,j,vierus[u-1] [j]);
-                    // järjestetään keko uudelleen
-                    h.decreaseKey(j, distance[j]);
+                if (vierus [u][j] != 0) {
+                    relax(u,j,vierus[u] [j]);
+                    // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
+              //      h.decreaseKey(j, distance[j]);
+                    h.decreaseKey(1, distance[j]);
                 }
             }
             
