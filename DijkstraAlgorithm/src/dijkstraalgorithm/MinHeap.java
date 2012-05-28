@@ -89,9 +89,11 @@ public class MinHeap {
         */
 // decrease the key associated with index k
     public void decreaseKey(int key, int newkey) {
+        System.out.println("Decreasekey: key + newkey" + key + " " + newkey + " " + Heap[key]);
         if ( newkey <= Heap[key]) {
             Heap[key] = newkey;
             pushdown(Heap[key]);
+//            pushdown(key);
         }
     }
     

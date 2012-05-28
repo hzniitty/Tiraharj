@@ -162,7 +162,7 @@ public class DijkstraAlgorithm {
                     relax(u,j,vierus[u] [j]);
                     // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
               //      h.decreaseKey(j, distance[j]);
-                    h.decreaseKey(1, distance[j]);
+                    h.decreaseKey(j+1, distance[j]);
                 }
             }
             
