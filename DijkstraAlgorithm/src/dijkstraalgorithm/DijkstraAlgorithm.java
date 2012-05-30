@@ -148,58 +148,68 @@ public class DijkstraAlgorithm {
         // Viedään kekoon solmut distance-arvon mukaan eli aloitussolmu ekaksi
         // ja muut sen jälkeen (muissa distance = max_value)
         solmut = new Solmu[solmujenLkm];
+        Solmu [] vierusNodet = new Solmu [solmujenLkm];
         for (int i=1;i<=solmujenLkm;i++) {
+              
+                        
+            Solmu v = new Solmu(i,distance[i-1],path[i-1],0);
             
-       //     h.insert(i, distance[i-1]);
-            Solmu v = new Solmu(i,distance[i-1],path[i-1]);
             solmut[i-1] = v;
             h.insert(v);
         }
-        System.out.println("Keko luonnin jälkeen");
+        System.out.println("Keko luonnin jälkeen:");
         h.print();
+        
+        // Viedään solmuihin vierussolmut
+        Solmu [] vierusSolmut = new Solmu[solmujenLkm];
+       
+        for (int i=0;i<solmujenLkm;i++) {  
+            int k = 0;
+            for (int j=0;j<solmujenLkm;j++) {
+                if (vierus [i] [j] != 0) {
+                    vierusSolmut[k]=solmut[j];
+                    k++;
+                }
+            }
+            solmut[i].asetaVierusSolmut(vierusSolmut);
+        }
+        
+        
         // käsitellään solmut keosta
         int u;
         Solmu uSolmu = null;
         while(!(h.isEmpty())) {
             // haetaan ja poistetaan keosta pienin (distance arvon mukaan) eli 
             // eka alkio
-            System.out.println("Keko pienimmän poiston ennen");
-            h.print();
-            //haetaan ennen poistoa minimisolmu eli jonka kekoAlkio = 1
-            for (int i=0;i<solmujenLkm;i++) {
-                Solmu a = solmut[i];
-                System.out.println("Solmu a " + a.haeKekoAlkio() + a.haeSolmu());
-                if (a.haeKekoAlkio()==1)
-                    uSolmu = a;
-            }
-            u = h.removemin();
-            
+            // KÄSITELTÄVÄ SOLMU
+            uSolmu = h.deleteMin();
+            u = uSolmu.haeDistance();
             System.out.println("Keko pienimmän poiston jälkeen");
             h.print();
             
          //   Solmu uSolmu = solmut[0];
            
-            System.out.println("Solmu u " + uSolmu.haeDistance());
+            System.out.println("Solmu u " + uSolmu.haeDistance() + " " + uSolmu.haeSolmu());
             
             // kaikille u:n vierussolmuille 
-            for (int j=0; j<solmujenLkm;j++) {
-                System.out.println("u" + u + " j " + j);
-                if (vierus [uSolmu.haeKekoAlkio()][j] != 0) {
-                    Solmu vSolmu = solmut[j];
+            for (int j=0; j<uSolmu.vierusSolmuLkm();j++) {
+                System.out.println("u j vierusSOlmuLkm" + u + " " + j + " " + uSolmu.vierusSolmuLkm());
+                Solmu vSolmu = uSolmu.haeVierusSolmu(j);
+                if (vSolmu != null) {
+                Solmu.print(vSolmu);
               //      relax(u,j,vierus[u] [j]);
-                    if (vSolmu.haeDistance() > vSolmu.haeDistance() + vierus [uSolmu.haeKekoAlkio()] [j]) {
-                        vSolmu.asetaDistance(uSolmu.haeDistance() + vierus [uSolmu.haeKekoAlkio()] [j]);
-                        vSolmu.asetaPolku(uSolmu.haeKekoAlkio());
-       //     tulostaPath();
-        }
-                    // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
-              //      h.decreaseKey(j, distance[j]);
-                    h.decreaseKey(solmut[j], vSolmu.haeDistance());
-                    System.out.println("Keko decrease poiston jälkeen");
-            h.print();
+                if (vSolmu.haeDistance() > vSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]) {
+                    vSolmu.asetaDistance(uSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]);
+                    vSolmu.asetaPolku(uSolmu.haeKekoAlkio());
                 }
+                // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
+                //      h.decreaseKey(j, distance[j]);
+                h.decreaseKey(vSolmu, vSolmu.haeDistance());
+                System.out.println("Keko decreaseKeyn jälkeen");
+                h.print();
+                }
+         //       }
             }
-            
         }
        
         tulostaPolut();

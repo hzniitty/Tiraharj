@@ -54,21 +54,26 @@ public class MinHeap {
 	tmp = Heap[pos1];
 	Heap[pos1] = Heap[pos2];
 	Heap[pos2] = tmp;
+        Heap[pos1].asetaKekoAlkio(pos2);
+        Heap[pos2].asetaKekoAlkio(pos1);
     }
 
     public void insert(Solmu solmu) {
-	size++;
+        size++;
 	Heap[size] = solmu;
         int current = size;
-      	while (Heap[current].haeDistance() < Heap[parent(current)].haeDistance()) {
-	    swap(current, parent(current));
-	    current = parent(current);
-	}
-       
-        solmu.asetaKekoAlkio(current);
+        if (Heap[parent(current)] != null) {
+            while (Heap[current].haeDistance() < Heap[parent(current)].haeDistance()) {
+                swap(current, parent(current));
+                current = parent(current);
+            }
+            solmu.asetaKekoAlkio(current);
+        
    //     for (int i=0;i<=size;i++) {
    //     System.out.println(" heap " + Heap[i]);
    //     }
+        }
+        else solmu.asetaKekoAlkio(1);
     }
     
     
@@ -90,7 +95,7 @@ public class MinHeap {
         */
 // decrease the key associated with index k
     public void decreaseKey(Solmu key, int newkey) {
-        System.out.println("Decreasekey: key + newkey" + key + " " + newkey + " ");
+        System.out.println("Decreasekey: solmu distance newkey " + key.haeSolmu() + key.haeDistance() + " " + newkey + " ");
         if ( newkey <= key.haeDistance()) {
             key.asetaDistance(newkey);
   //          pushdown(Heap[key]);
@@ -98,23 +103,34 @@ public class MinHeap {
         }
     }
     
-     private void heapify(int k)  {
-        int l = leftchild(k);
-        int r = rightchild(k);
-        int smallest = 0;
-        if (l <= size && Heap[l] < Heap [k])
-            smallest = l;
-        else smallest = k;
-        if (r <= size && Heap[r] < Heap[smallest]) 
-            smallest = r;
-        if (smallest != k ) {
-            swap(Heap[k],Heap[smallest]);
-            // Solmujen kekoalkiot kuntoon
-            
+    private void heapify(Solmu k)  {
+        // haetaan solmun vasemmanpuolinen alkio
+        int l = leftchild(k.haeKekoAlkio());
+        // haetaan solmun oikeanpuolinen alkio
+        int r = rightchild(k.haeKekoAlkio());
+        Solmu [] apu; 
+        Solmu smallest = new Solmu(0,0,0,0);   
+        System.out.println("HPF1: left right" + l + " " + r + " " + k.haeKekoAlkio() );
+   //     System.out.println("HPF1:size left right size Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
+   //     System.out.println("HPF1:"+size+" "+ l + " " + r + " "+Heap[l].haeDistance()+" "+Heap[r].haeDistance()+" "+ k.haeDistance()+ " " + k.haeSolmu() +" "+size);
+        if (l <= size && Heap[l].haeDistance() < k.haeDistance()) {
+            smallest.asetaDistance(Heap[l].haeDistance()); }
+        else {
+            smallest.asetaDistance(k.haeDistance());
+        }
+        if (r <= size && Heap[r].haeDistance() < smallest.haeDistance())  {
+            smallest.asetaDistance(r);
+        }
+        if (smallest.haeDistance() != k.haeDistance() ) {
+            swap(k.haeKekoAlkio(),smallest.haeKekoAlkio());
             heapify(smallest);
         }
+        System.out.println("HPF2");
+        print();
     }
      
+    
+    /* 
      private void pushdown(int position) {
 //	Solmu dSolmu = solmut[position];
         
@@ -130,30 +146,23 @@ public class MinHeap {
 	}
   //      dSolmu.kekoAlkio(position);
     }
-    
+    */
     public void print() {
 	int i;
 	for (i=1; i<=size;i++) {
-	    System.out.print("Solmu " + Heap[i]);
-            System.out.println();
+	    System.out.println("Heap: ind, solmu, kekoalkio, distance: " +i+" "+Heap[i].haeSolmu()+" "+Heap[i].haeKekoAlkio()+" "+Heap[i].haeDistance());
         }
     }
 
-    public int deleteMin() {
-        // asetetaan poistettavan solmun kekoalkio nollaksi
-        for (int i=0;i<DijkstraAlgorithm.solmujenLkm;i++) {
-            Solmu a = DijkstraAlgorithm.solmut[i];
-            if (a.haeKekoAlkio()==1)
-                a.asetaKekoAlkio(0);
-        }
-        
-        
-	int min = Heap[1];
+    public Solmu deleteMin() {
+   
+	Solmu min = Heap[1];
         Heap[1] = Heap[size];
+        Heap[1].asetaKekoAlkio(1);
 	size--;
 	if (size != 0)
 //	    pushdown(1);
-        heapify(1);
+            heapify(Heap[1]);
 	return min;
     }
 
