@@ -5,15 +5,16 @@
 package dijkstraalgorithm;
 
 /**
- *
+ * This class represents a Node in the Graph.
+ * this is the second line.
  * @author Hannu
  */
-public class Solmu {
+public class Solmu implements Comparable<Solmu>{
     private int solmu;
     private int polku;
     private int distance;
     private int kekoAlkio;
-    public static Solmu [] vierusSolmut;
+    public  Solmu [] vierusSolmut;
     private int [] kustannus;
     
     // konstruktori
@@ -84,7 +85,7 @@ public class Solmu {
     public void asetaVierusSolmut(Solmu [] solmut) {
         vierusSolmut= new Solmu[solmut.length];
         for (int i=0;i<solmut.length;i++) {
-       //    System.out.println(" i solmu " + i + " " + solmut[i] + " " + solmut.length);
+       //   System.out.println(" i solmu " + i + " " + solmut[i] + " " + solmut.length);
             if (solmut[i] != null) {
        //         System.out.println(" i solmu " + i + " " + solmut[i]);
                 this.vierusSolmut[i]=solmut[i];
@@ -92,13 +93,39 @@ public class Solmu {
         }
     }
     
+    /**
+     * Selostus.
+     * rivi 2
+     * @param p the node to the printed
+     */
     public static void print(Solmu p) {
+        System.out.println("--------------------------");
         System.out.println("Solmu: " + p.haeSolmu());
         System.out.println("Distance: " + p.haeDistance());
         System.out.println("Polku: " + p.haePolku());
         System.out.println("Kekoalkio: " + p.haeKekoAlkio());
-        for (int i=0;i<vierusSolmut.length;i++) {
-            System.out.println("Vierussolmut: " + p.haeVierusSolmu(i));
+        for (int i=0;i<DijkstraAlgorithm.solmujenLkm;i++) {
+            if (p.vierusSolmut[i] != null)
+                System.out.println("Vierussolmut: " + p.vierusSolmut[i].haeSolmu()+ " " + p.haeVierusSolmu(i));
+        }
+        System.out.println("--------------------------");
+        
+    }
+
+    @Override
+    public int compareTo(Solmu t) {
+        if (this.distance < t.distance) {
+            return -1;
+        } else if (this.distance > t.distance) {
+            return 1;
+        } else {
+            return 0;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Solmu{" + "solmu=" + solmu + ", polku=" + polku + ", distance=" + distance + ", kekoAlkio=" + kekoAlkio + ", vierusSolmut=" + vierusSolmut + ", kustannus=" + kustannus + '}';
+    }
+    
 }

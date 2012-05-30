@@ -95,7 +95,7 @@ public class MinHeap {
         */
 // decrease the key associated with index k
     public void decreaseKey(Solmu key, int newkey) {
-        System.out.println("Decreasekey: solmu distance newkey " + key.haeSolmu() + key.haeDistance() + " " + newkey + " ");
+        System.out.println("DECREASEKEY: solmu distance newkey " + key.haeSolmu() + " " + key.haeDistance() + " " + newkey + " ");
         if ( newkey <= key.haeDistance()) {
             key.asetaDistance(newkey);
   //          pushdown(Heap[key]);
@@ -110,9 +110,9 @@ public class MinHeap {
         int r = rightchild(k.haeKekoAlkio());
         Solmu [] apu; 
         Solmu smallest = new Solmu(0,0,0,0);   
-        System.out.println("HPF1: left right" + l + " " + r + " " + k.haeKekoAlkio() );
-   //     System.out.println("HPF1:size left right size Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
-   //     System.out.println("HPF1:"+size+" "+ l + " " + r + " "+Heap[l].haeDistance()+" "+Heap[r].haeDistance()+" "+ k.haeDistance()+ " " + k.haeSolmu() +" "+size);
+   //     System.out.println("HPF1: left right" + l + " " + r + " " + k.haeKekoAlkio() );
+        System.out.println("HPF1:size left right Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
+   //     System.out.println("HPF1:"+size+" "+l+" "+r+" "+Heap[l].haeDistance()+" "+Heap[r].haeDistance()+" "+k.haeDistance()+" "+k.haeSolmu());
         if (l <= size && Heap[l].haeDistance() < k.haeDistance()) {
             smallest.asetaDistance(Heap[l].haeDistance()); }
         else {
@@ -125,8 +125,8 @@ public class MinHeap {
             swap(k.haeKekoAlkio(),smallest.haeKekoAlkio());
             heapify(smallest);
         }
-        System.out.println("HPF2");
-        print();
+    //    System.out.println("HPF2");
+    //    print();
     }
      
     
@@ -148,10 +148,13 @@ public class MinHeap {
     }
     */
     public void print() {
+        System.out.println("KEKO:---------------------------------------------");
 	int i;
 	for (i=1; i<=size;i++) {
 	    System.out.println("Heap: ind, solmu, kekoalkio, distance: " +i+" "+Heap[i].haeSolmu()+" "+Heap[i].haeKekoAlkio()+" "+Heap[i].haeDistance());
         }
+        System.out.println("--------------------------------------------------");
+	
     }
 
     public Solmu deleteMin() {

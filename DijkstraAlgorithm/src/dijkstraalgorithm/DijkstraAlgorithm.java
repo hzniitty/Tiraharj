@@ -114,18 +114,20 @@ public class DijkstraAlgorithm {
      */
     
     public static void tulostaPolut() {
-        System.out.println("Lyhin polku aloitussolmusta " + aloitusSolmu );
-        for (int i=1;i<=solmujenLkm;i++) {
+        System.out.println("+++++++++++++Lyhin polku aloitussolmusta " + aloitusSolmu );
+        for (int i=0;i<solmujenLkm;i++) {
             Stack p = new Stack(solmujenLkm);
-            if (i!=aloitusSolmu) {
-                for (int j=i;j>1;j--) {
+            if (i!=aloitusSolmu-1) {
+                for (int j=i;j>=0;j--) {
                     Solmu s = solmut[j];
+                    System.out.println("Push BEGIN:------------------------");
+                    Solmu.print(s);
                     int u = s.haePolku();
-          //      if (s.haeSolmu() != aloitusSolmu) {
-                    System.out.println("u = " + u);
-                    p.push(u);
+                    if (u != 0)
+                        p.push(u);
+                    System.out.println("Push END:------------------------");
                 }
-                System.out.println("solmuun " + i + "kulkee seuraavien solmujen kautta:");
+                System.out.println("*********** solmuun " + (i+1) + " kulkee seuraavien solmujen kautta:");
                 while (!p.isEmpty()) {
                     int u = p.pop();
                     System.out.println(u);
@@ -161,19 +163,32 @@ public class DijkstraAlgorithm {
         h.print();
         
         // Viedään solmuihin vierussolmut
-        Solmu [] vierusSolmut = new Solmu[solmujenLkm];
-       
+        
+        // Solmu [] vierusSolmut = new Solmu[solmujenLkm];
+        Solmu [] vierusSolmut;
         for (int i=0;i<solmujenLkm;i++) {  
+            
+            vierusSolmut = new Solmu[solmujenLkm];
             int k = 0;
             for (int j=0;j<solmujenLkm;j++) {
+                
                 if (vierus [i] [j] != 0) {
                     vierusSolmut[k]=solmut[j];
+           //         System.out.println("Testiä i j k " + i + " " + j + " " + k + " " + solmut[j]);
                     k++;
+                    
                 }
             }
             solmut[i].asetaVierusSolmut(vierusSolmut);
+      //      Solmu.print(solmut[i]);
+            
         }
-        
+        // Tulostetaan solmut
+        System.out.println("SOLMUT");
+        for (int i=0;i<solmujenLkm;i++) {  
+            Solmu.print(solmut[i]);
+        }
+        System.out.println("SOLMUT LOPPU");
         
         // käsitellään solmut keosta
         int u;
@@ -189,24 +204,28 @@ public class DijkstraAlgorithm {
             
          //   Solmu uSolmu = solmut[0];
            
-            System.out.println("Solmu u " + uSolmu.haeDistance() + " " + uSolmu.haeSolmu());
+         //   System.out.println("Solmu u: Solmu Distance" + " " + uSolmu.haeSolmu() + " " + uSolmu.haeDistance());
+            System.out.println("Solmu u (keosta poistettu solmu)");
+            Solmu.print(uSolmu);
+           
             
             // kaikille u:n vierussolmuille 
             for (int j=0; j<uSolmu.vierusSolmuLkm();j++) {
-                System.out.println("u j vierusSOlmuLkm" + u + " " + j + " " + uSolmu.vierusSolmuLkm());
+           //     System.out.println("u j vierusSOlmuLkm" + u + " " + j + " " + uSolmu.vierusSolmuLkm());
                 Solmu vSolmu = uSolmu.haeVierusSolmu(j);
                 if (vSolmu != null) {
-                Solmu.print(vSolmu);
+                    System.out.println("Solmu u:n vierussolmu");
+                    Solmu.print(vSolmu);
               //      relax(u,j,vierus[u] [j]);
-                if (vSolmu.haeDistance() > vSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]) {
-                    vSolmu.asetaDistance(uSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]);
-                    vSolmu.asetaPolku(uSolmu.haeKekoAlkio());
-                }
+                    if (vSolmu.haeDistance() > vSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]) {
+                        vSolmu.asetaDistance(uSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]);
+                        vSolmu.asetaPolku(uSolmu.haeKekoAlkio());
+                    }
                 // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
                 //      h.decreaseKey(j, distance[j]);
-                h.decreaseKey(vSolmu, vSolmu.haeDistance());
-                System.out.println("Keko decreaseKeyn jälkeen");
-                h.print();
+                    h.decreaseKey(vSolmu, vSolmu.haeDistance());
+                    System.out.println("Keko decreaseKeyn jälkeen");
+                    h.print();
                 }
          //       }
             }
