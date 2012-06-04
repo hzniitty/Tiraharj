@@ -19,9 +19,9 @@ public class Stack {
     }
     
     public int pop(){
-        int pois = table[top];
+        int poptop = table[top];
         top--;
-        return pois;
+        return poptop;
     }
     
     public void push(int x){

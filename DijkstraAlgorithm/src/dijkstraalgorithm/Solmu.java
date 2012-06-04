@@ -93,6 +93,21 @@ public class Solmu implements Comparable<Solmu>{
         }
     }
     
+    public void asetaKustannukset(int [] kustannukset) {
+        kustannus= new int [kustannukset.length];
+        for (int i=0;i<kustannukset.length;i++) {
+       //   System.out.println(" i solmu " + i + " " + solmut[i] + " " + solmut.length);
+        //    if (kustannukset[i] != 0) {
+       //         System.out.println(" i solmu " + i + " " + solmut[i]);
+                this.kustannus[i]=kustannukset[i];
+       //     }
+        }
+    }
+    
+    public int haeKustannus(int ind) {
+        return kustannus[ind];
+    }
+    
     /**
      * Selostus.
      * rivi 2

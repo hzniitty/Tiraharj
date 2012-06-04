@@ -26,7 +26,7 @@ public class MinHeap {
 //	Heap = new int[maxsize];
 	Heap = new Solmu[max];
 	size = 0 ;
-	Heap[0] = null;
+	Heap[0] = new Solmu(0,0,0,0);
     }
 
     public boolean isEmpty() {
@@ -99,7 +99,13 @@ public class MinHeap {
         if ( newkey <= key.haeDistance()) {
             key.asetaDistance(newkey);
   //          pushdown(Heap[key]);
-            heapify(key);
+       //     heapify(key);
+       //     heapify(Heap[0]);
+            int current = key.haeKekoAlkio();
+            while (Heap[current].haeDistance() < Heap[parent(current)].haeDistance()) {
+                swap(current, parent(current));
+                current = parent(current);
+            }
         }
     }
     
@@ -108,25 +114,30 @@ public class MinHeap {
         int l = leftchild(k.haeKekoAlkio());
         // haetaan solmun oikeanpuolinen alkio
         int r = rightchild(k.haeKekoAlkio());
+        l++; r++;
         Solmu [] apu; 
-        Solmu smallest = new Solmu(0,0,0,0);   
-   //     System.out.println("HPF1: left right" + l + " " + r + " " + k.haeKekoAlkio() );
+        Solmu smallest = k;   
+       System.out.println("HPF1: size left right k.haeKekoAlkio()" +size +" "+ l + " " + r + " " + k.haeKekoAlkio() );
         System.out.println("HPF1:size left right Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
    //     System.out.println("HPF1:"+size+" "+l+" "+r+" "+Heap[l].haeDistance()+" "+Heap[r].haeDistance()+" "+k.haeDistance()+" "+k.haeSolmu());
+        
+        // Jos solmulla on vasemmanpuoleinen lapsi ja lapsen distance on pienempi kuin käsiteltävän solmun distance,
+        // niin smallest saa vasemmanpuoleisen lapsen arvon, muuten smallest saa käsiteltävänä olevan solmun distance-arvon
         if (l <= size && Heap[l].haeDistance() < k.haeDistance()) {
-            smallest.asetaDistance(Heap[l].haeDistance()); }
+            smallest.asetaDistance(Heap[l].haeDistance()); 
+        }
         else {
             smallest.asetaDistance(k.haeDistance());
         }
         if (r <= size && Heap[r].haeDistance() < smallest.haeDistance())  {
-            smallest.asetaDistance(r);
+            smallest.asetaDistance(Heap[r].haeDistance());
         }
         if (smallest.haeDistance() != k.haeDistance() ) {
             swap(k.haeKekoAlkio(),smallest.haeKekoAlkio());
             heapify(smallest);
         }
-    //    System.out.println("HPF2");
-    //    print();
+  //      System.out.println("SOLMU Heapifyn jälkeen");
+   //     Solmu.print(k);
     }
      
     
