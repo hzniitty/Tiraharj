@@ -16,6 +16,7 @@ public class Node implements Comparable<Node>{
     private int heapPosition;
     public  Node [] adjacentNodes;
     private int [] cost;
+    private int numberOfAdjacentNodes;
     
     /**
      * 
@@ -32,12 +33,14 @@ public class Node implements Comparable<Node>{
         path=nodePath;
         heapPosition=nodeHeapPosition;
         adjacentNodes= new Node[nodeAdjacentNodes.length];
+        cost = new int [nodeCost.length];
         for (int i=0;i<nodeAdjacentNodes.length;i++) {
-            if (adjacentNodes[i] != null) 
+            if (adjacentNodes[i] != null) {
                 adjacentNodes[i]=nodeAdjacentNodes[i];
-            cost[i]=nodeCost[i];
-            
-        }   
+                cost[i]=nodeCost[i];
+            }
+        } 
+        numberOfAdjacentNodes=0;
     } 
     
     // konstruktori
@@ -46,7 +49,7 @@ public class Node implements Comparable<Node>{
         distance=nodeDistance;
         path=nodePath;
         heapPosition=nodeHeapPosition;
-       
+        numberOfAdjacentNodes=0;
     } 
     
  /**
@@ -88,16 +91,21 @@ public class Node implements Comparable<Node>{
     }
      
     public int getNumberOfAdjacentNodes() {
-        return adjacentNodes.length;
+        return numberOfAdjacentNodes;
     }
-     
+    
+    public void setNumberOfAdjacentNodes() {
+        numberOfAdjacentNodes++;
+    }
+    
     public Node getAdjacentNode(int ind) {
         return adjacentNodes[ind];
     }
     
     public void setAdjacentNode(Node n) {
-        System.out.println("PITUUS " );
-        this.adjacentNodes[this.adjacentNodes.length]=n;
+        this.adjacentNodes[getNumberOfAdjacentNodes()]=n;
+        setNumberOfAdjacentNodes();
+//        System.out.println("setAdjacentNode " + getNumberOfAdjacentNodes() + this + "vierussolmu"+ n);
     }
     
     public void setAdjacentNodes(Node [] nodes) {
@@ -107,13 +115,13 @@ public class Node implements Comparable<Node>{
             if (nodes[i] != null) {
        //         System.out.println(" i solmu " + i + " " + solmut[i]);
                 this.adjacentNodes[i]=nodes[i];
+                setNumberOfAdjacentNodes();
             }
         }
     }
     
     public void setCost(int n) {
-        
-        this.cost[this.cost.length]=n;
+        this.cost[getNumberOfAdjacentNodes()-1]=n;
     }
     
     public void setCosts(int [] costs) {

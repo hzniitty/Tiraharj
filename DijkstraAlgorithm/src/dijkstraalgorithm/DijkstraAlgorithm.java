@@ -13,18 +13,10 @@ import java.util.Scanner;
 public class DijkstraAlgorithm {
 
     /**
-     * @param file
+     * This method reads the number of nodes from input file.
+     * @param file input file
      * @return  
      */
-    
-    // luokan muuttujat
-//    public static int solmujenLkm;
-//    private static int aloitusSolmu;
-//    private static int [] [] vierus ;
-//    private static int [] distance ;
-//    private static int [] path ;
-//    public static Node [] solmut;
-    
     
     public static int readNumberOfNodes(String file) {
         int numberOfNodes = 0;      
@@ -33,25 +25,48 @@ public class DijkstraAlgorithm {
             int count = 0;
             String [] rowsplit;
             String [] values;
-            
             while(scan.hasNext()) {
                 String row = scan.nextLine();
-                // tiedoston tarkistukset tähän
                 if (row.startsWith("solmujen_lukumaara")) {
                     rowsplit = row.split("=");
-                    numberOfNodes = Integer.parseInt(rowsplit [1]);                
-            //        System.out.println("solmujenLkm=" + solmujenLkm);
-            //        vierus  = new int [solmujenLkm] [solmujenLkm];
-         
+                    numberOfNodes = Integer.parseInt(rowsplit [1]);   
                 return numberOfNodes;  
                 } 
             }
         }
         catch(Exception ex) {
-        System.out.println("Tiedostoa ei loydy: " + ex);
+        System.out.println("Virhe syötteessä: " + ex);
         return -1;
         }
         return numberOfNodes;  
+    }
+    
+    /**
+     * 
+     * @param file
+     * @return
+     */
+    public static int readStartNode(String file) {
+        int startNode = 0;
+        try {
+//            Scanner scan = new Scanner(new File("verkko.txt"));
+            Scanner scan = new Scanner(new File (file));
+            int count = 0;
+            String [] rowsplit;
+            
+            while(scan.hasNext()) {
+                String row = scan.nextLine();
+                if (row.startsWith("aloitus_solmu")) {
+                    rowsplit = row.split("=");
+                    startNode = Integer.parseInt(rowsplit [1]);
+                } 
+            }
+         
+        }
+        catch(Exception ex) {
+        System.out.println("Virhe syötteen käsittelyssä" + ex);
+        }
+        return startNode;  
     }
     
     /**
@@ -65,7 +80,6 @@ public class DijkstraAlgorithm {
         Node [] vierusSolmut;
         int [] kustannukset;
         try {
-//            Scanner scan = new Scanner(new File("verkko.txt"));
             Scanner scan = new Scanner(new File (file));
             int count = 0;
             String [] rowsplit;
@@ -86,30 +100,13 @@ public class DijkstraAlgorithm {
                     int arvo2 = Integer.parseInt(values[2]);
                     int node = --arvo0; 
                     int adjacentNode= --arvo1;
-                    System.out.println("arvot=" + arvo0 + arvo1 + arvo2);
+//                    System.out.println("arvot=" + arvo0 + arvo1 + arvo2);
                     adjacentMatrix[node][adjacentNode]=arvo2;
-                    /*
-                    int k = 0;
-                    vierusSolmut[k]=nodes[j];
-                    kustannukset[k] = graph [i] [j];
-                    k++;
-                    nodes[i].setAdjacentNodes(vierusSolmut);
-                    nodes[i].setCosts(kustannukset);
-                    * 
-                    */
-                    System.out.println("arvot=" + node + adjacentNode + arvo2 + nodes[node] + nodes[adjacentNode]);
+//                    System.out.println("arvot=" + node + adjacentNode + arvo2 + nodes[node] + nodes[adjacentNode]);
                     nodes[node].setAdjacentNode(nodes[adjacentNode]);
                     nodes[node].setCost(arvo2);
                     
                 }
-                    /*
-        // Tulostetaan solmut
-        System.out.println("SOLMUT");
-        for (int i=0;i<numberOfNodes;i++) {  
-            Node.print(nodes[i],numberOfNodes);
-        }
-        System.out.println("SOLMUT LOPPU");
-        */            
             }
             
         }
@@ -120,36 +117,6 @@ public class DijkstraAlgorithm {
         return nodes;
     }
     
-    /**
-     * 
-     * @param file
-     * @return
-     */
-    public static int readStartNode(String file) {
-        int startNode = 0;
-        try {
-//            Scanner scan = new Scanner(new File("verkko.txt"));
-            Scanner scan = new Scanner(new File (file));
-            int count = 0;
-            String [] rowsplit;
-            
-            while(scan.hasNext()) {
-                String row = scan.nextLine();
-                // tiedoston tarkistukset tähän
-               
-                if (row.startsWith("aloitus_solmu")) {
-                    rowsplit = row.split("=");
-                    startNode = Integer.parseInt(rowsplit [1]);
-            //        System.out.println("aloitusSolmu=" + aloitusSolmu);
-                } 
-            }
-         
-        }
-        catch(Exception ex) {
-        System.out.println("Tiedostoa ei loydy" + ex);
-        }
-        return startNode;  
-    }
     
     /**
      * 
@@ -163,66 +130,6 @@ public class DijkstraAlgorithm {
             System.out.println();
         }
     }
-   /* 
-    public static MinHeap luoMinimiKeko(int numberOfNodes) {
-      
-        // Minimikeon luonti, indeksi alkaa 1:stä
-        MinHeap h = new MinHeap(numberOfNodes+1);
-        // Viedään ensin solmut taulukkoon
-        // Viedään kekoon solmut distance-arvon mukaan eli aloitussolmu ekaksi
-        // ja muut sen jälkeen (muissa distance = max_value)
-        solmut = new Node[numberOfNodes];
- //       Solmu [] vierusNodet = new Solmu [solmujenLkm];
-        for (int i=1;i<=numberOfNodes;i++) {
-            Node v = new Node(i,distance[i-1],path[i-1],0);
-            solmut[i-1] = v;
-            h.insert(v);
-        }
-        
-        System.out.println("Keko luonnin jälkeen:");
-        h.print();
-        return h;
-    }
-    */
-    /*
-    public static void tulostaDistance() {
-        for (int i=0;i<solmujenLkm;i++) {
-            System.out.println("Distance[" + i + "]=" + distance[i]);
-        }
-    }
-    
-    public static void tulostaPath() {
-        for (int i=0;i<solmujenLkm;i++) {
-            System.out.println("Path[" + i + "]=" + path[i]);
-        }
-    }
-    */
-    /*        
-    public static void initializeSingleSource(int solmujenLkm,int aloitusSolmu) {
-        distance = new int [solmujenLkm];
-        path = new int [solmujenLkm];
-        for (int v = 0; v < solmujenLkm; v++) {
-            distance[v] = Integer.MAX_VALUE;
-        }
-        distance[aloitusSolmu-1] = 0;
-    }
-    */
-    /*
-    public static void relax (int u, int v, int w) {
-        
-        System.out.println("u, v, w " + u + " " + v + " " + w);
-        
-       //  tulostaDistance();
-        if (distance[v] > distance[u] + vierus [u] [v]) {
-            distance [v] = distance [u] + vierus [u] [v];
-            path[v] = u;
-       //     tulostaPath();
-        }
-        tulostaDistance();   
-    }
-     
-
-     */
     
     /**
      * 
@@ -263,11 +170,8 @@ public class DijkstraAlgorithm {
      * @return
      */
     public static Node [] Dijkstra(Node [] dijkstranodes, int startNode, int numberOfNodes) {
-     //   Node [] nodes;
         int [] distance;
         int [] path ;
-// Solmujen lukumäärä haettava graphsta
-//        int solmutLkm = graph[0].length;
 // kaikille solmuille distance -> Max-value, paitsi aloitussolmu distance = 0
 // kaikille solmuille path = null
         // initializeSingleSource(solmutLkm,alkuSolmu);
@@ -278,60 +182,23 @@ public class DijkstraAlgorithm {
         }
         distance[startNode-1] = 0;
        
- // Luodaan Heap
-        // MinHeap h = luoMinimiKeko(solmutLkm);
-       
-          // Minimikeon luonti, indeksi alkaa 1:stä
+// Luodaan Heap
+// Minimikeon luonti, indeksi alkaa 1:stä
         MinHeap h = new MinHeap(numberOfNodes+1);
-        // Viedään ensin solmut taulukkoon
-        // Viedään kekoon solmut distance-arvon mukaan eli aloitussolmu ekaksi
-        // ja muut sen jälkeen (muissa distance = max_value)
-       //  nodes = new Node[numberOfNodes];
- //       Solmu [] vierusNodet = new Solmu [solmujenLkm];
-        for (int i=1;i<=numberOfNodes;i++) {
-            Node v = new Node(i,distance[i-1],path[i-1],0);
-            dijkstranodes[i-1] = v;
-            h.insert(v);
+// Viedään kekoon solmut distance-arvon mukaan eli aloitussolmu ekaksi
+// ja muut sen jälkeen (muissa distance = max_value)
+        for (int i=0;i<numberOfNodes;i++) {
+            dijkstranodes[i].setDistance(distance[i]);
+            dijkstranodes[i].setPath(path[i]);
+            h.insert(dijkstranodes[i]);
         }
         
+// DEBUG: Tulostetaan solmut
+/*       
         System.out.println("Keko luonnin jälkeen:");
         h.print();
-     //   return h;
+*/ 
         
-        /*
-        // Viedään solmuihin vierussolmut
-        
-        // Solmu [] vierusSolmut = new Solmu[solmujenLkm];
-        Node [] vierusSolmut;
-        int [] kustannukset;
-        for (int i=0;i<numberOfNodes;i++) {  
-            
-            vierusSolmut = new Node[numberOfNodes];
-            kustannukset = new int[numberOfNodes];
-            int k = 0;
-            for (int j=0;j<numberOfNodes;j++) {
-                
-                if (graph [i] [j] != 0) {
-                    vierusSolmut[k]=nodes[j];
-                    kustannukset[k] = graph [i] [j];
-           //         System.out.println("Testiä i j k " + i + " " + j + " " + k + " " + solmut[j]);
-                    k++;
-                    
-                }
-            }
-            nodes[i].setAdjacentNodes(vierusSolmut);
-            nodes[i].setCosts(kustannukset);
-      //      Solmu.print(solmut[i]);
-            
-        }
-        // Tulostetaan solmut
-        System.out.println("SOLMUT");
-        for (int i=0;i<numberOfNodes;i++) {  
-            Node.print(nodes[i],numberOfNodes);
-        }
-        System.out.println("SOLMUT LOPPU");
-        */
-        // käsitellään solmut keosta
         int u;
         Node uSolmu = null;
         while(!(h.isEmpty())) {
@@ -340,29 +207,25 @@ public class DijkstraAlgorithm {
             // KÄSITELTÄVÄ SOLMU
             uSolmu = h.deleteMin();
             u = uSolmu.getDistance();
+            
+// DEBUG: 
+/*       
+         
             System.out.println("Keko pienimmän poiston jälkeen");
             h.print();
             
-         //   Solmu uSolmu = solmut[0];
-           
-         //   System.out.println("Solmu u: Solmu Distance" + " " + uSolmu.haeSolmu() + " " + uSolmu.haeDistance());
-            System.out.println("Solmu u (keosta poistettu solmu)");
+            System.out.println("Solmu uSolmu (keosta poistettu solmu) " + uSolmu);
             Node.print(uSolmu, numberOfNodes);
-           
-            
-            // kaikille u:n vierussolmuille 
+             
+*/
+// kaikille u:n vierussolmuille 
             for (int j=0; j<uSolmu.getNumberOfAdjacentNodes();j++) {
            //     System.out.println("u j vierusSOlmuLkm" + u + " " + j + " " + uSolmu.vierusSolmuLkm());
                 Node vSolmu = uSolmu.getAdjacentNode(j);
                 if (vSolmu != null) {
                     System.out.println("Solmu u:n vierussolmu");
                     Node.print(vSolmu, numberOfNodes);
-              /*     relax(u,j,vierus[u] [j]);
-                    if (vSolmu.haeDistance() > uSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]) {
-                        vSolmu.asetaDistance(uSolmu.haeDistance() + vierus [uSolmu.haeSolmu()-1] [j]);
-                        vSolmu.asetaPolku(uSolmu.haeKekoAlkio());
-                    }
-                    */
+//relax      
                     if (uSolmu.getDistance() + uSolmu.getCost(j) > -1) {
                     if (vSolmu.getDistance() > uSolmu.getDistance() + uSolmu.getCost(j)) {
                         System.out.println("usolmu.haeKustannus() " + uSolmu.getCost(j) +" " + (uSolmu.getDistance() + uSolmu.getCost(j)) );
@@ -371,8 +234,7 @@ public class DijkstraAlgorithm {
                         vSolmu.setPath(uSolmu.getNodeNumber());
                     }
                     }
-                // vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
-                //      h.decreaseKey(j, distance[j]);
+// vähennetään käsiteltävänä olevan solmun avainta, jos distance muuttunut
                     h.decreaseKey(vSolmu, vSolmu.getDistance());
                     System.out.println("Keko decreaseKeyn jälkeen");
                     h.print();
@@ -394,11 +256,11 @@ public class DijkstraAlgorithm {
         String file = "verkko.txt";
         int numberOfNodes = readNumberOfNodes(file);
         if (numberOfNodes == -1) {
-            System.out.println("Tiedostoa ei löydy");
+            System.out.println("Virhe syötteen käsittelyssä");
             return;
         }
         if (numberOfNodes == 0) {
-            System.out.println("Epäkelpo syöte: solmujen lukumäärä virheellinen");
+            System.out.println("Epäkelpo syöte: solmuja oltava vähintään yksi");
             return;
         }
   
@@ -411,9 +273,9 @@ public class DijkstraAlgorithm {
 // Luodaan solmut
         Node [] nodes;
         nodes = new Node[numberOfNodes];
-        
+        int [] costs = new int[numberOfNodes];
         for (int i=1;i<=numberOfNodes;i++) {
-            Node v = new Node(i,0,0,0);
+            Node v = new Node(i,0,0,0,nodes,costs);
             nodes[i-1] = v;
         }
         
