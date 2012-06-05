@@ -5,7 +5,7 @@
 package dijkstraalgorithm;
 
 /**
- *
+ * This class represents stack.
  * @author fi72031
  */
 public class Stack {
@@ -14,8 +14,8 @@ public class Stack {
     private static int top;
     
     /**
-     * 
-     * @param n
+     * Creates a table repsenting stack.
+     * @param n - size of the table (stack)
      */
     public Stack (int n) {
         top = -1;
@@ -23,8 +23,8 @@ public class Stack {
     }
     
     /**
-     * 
-     * @return
+     * Stack pop operation 
+     * @return The last element of the table (stack)
      */
     public int pop(){
         int poptop = table[top];
@@ -33,8 +33,8 @@ public class Stack {
     }
     
     /**
-     * 
-     * @param x
+     * Stack push operation 
+     * @param x The element to be added into table (stack).
      */
     public void push(int x){
         top++;
@@ -42,8 +42,8 @@ public class Stack {
     }
 
     /**
-     * 
-     * @return
+     * Checks, if the stack is empty.
+     * @return - true, if the table (stack) is empty, otherwise false.
      */
     public boolean isEmpty(){
         return top==-1;

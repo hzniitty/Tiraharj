@@ -72,6 +72,8 @@ public class DijkstraAlgorithm {
     /**
      * 
      * @param file
+     * @param numberOfNodes 
+     * @param nodes 
      * @return
      */
     public static Node [] readAdjacentNodes(String file, int numberOfNodes, Node [] nodes) {
@@ -164,7 +166,7 @@ public class DijkstraAlgorithm {
     
     /**
      * 
-     * @param graph
+     * @param dijkstranodes 
      * @param startNode
      * @param numberOfNodes
      * @return
