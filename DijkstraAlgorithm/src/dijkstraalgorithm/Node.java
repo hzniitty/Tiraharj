@@ -5,8 +5,8 @@
 package dijkstraalgorithm;
 
 /**
- * This class represents a Node (Vertex) in the Graph.
- * this is the second line.
+ * This class represents a Node (Vertex) in the Graph. 
+ * 
  * @author Hannu
  */
 public class Node implements Comparable<Node>{
@@ -14,18 +14,21 @@ public class Node implements Comparable<Node>{
     private int distance;
     private int path;
     private int heapPosition;
+    /**
+     * 
+     */
     public  Node [] adjacentNodes;
     private int [] cost;
     private int numberOfAdjacentNodes;
     
     /**
      * 
-     * @param dijkstraNode
+     * @param dijkstraNode Node number, used as a key
      * @param nodeDistance
      * @param nodePath
-     * @param heapPosition
-     * @param adjacentNodes
-     * @param cost
+     * @param nodeHeapPosition 
+     * @param nodeAdjacentNodes
+     * @param nodeCost  
      */
     public Node(int dijkstraNode, int nodeDistance, int nodePath, int nodeHeapPosition, Node[] nodeAdjacentNodes, int[] nodeCost) {
         node=dijkstraNode;
@@ -44,6 +47,13 @@ public class Node implements Comparable<Node>{
     } 
     
     // konstruktori
+    /**
+     * 
+     * @param dijkstraSolmu
+     * @param nodeDistance
+     * @param nodePath
+     * @param nodeHeapPosition
+     */
     public Node(int dijkstraSolmu, int nodeDistance, int nodePath, int nodeHeapPosition) {
         node=dijkstraSolmu;
         distance=nodeDistance;
@@ -55,59 +65,108 @@ public class Node implements Comparable<Node>{
  /**
  * This method sets the number of the Node.
  * this is the second line.
+ * @param index 
  * @author Hannu
  */
     public void setNodeNumber(int index) {
         this.node=index;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getNodeNumber() {
         return node;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getDistance() {
         return distance;
     }
     
+    /**
+     * 
+     * @param dist
+     */
     public void setDistance(int dist) {
         this.distance=dist;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getHeapNodeNumber() {
         return heapPosition;
     }
     
+    /**
+     * 
+     * @param heapPosition
+     */
     public void setHeapNodeNumber(int heapPosition) {
      
         this.heapPosition = heapPosition;
     }
     
+    /**
+     * 
+     * @param index
+     */
     public void setPath(int index) {
         this.path=index;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getPath() {
         return path;
     }
      
+    /**
+     * 
+     * @return
+     */
     public int getNumberOfAdjacentNodes() {
         return numberOfAdjacentNodes;
     }
     
+    /**
+     * 
+     */
     public void setNumberOfAdjacentNodes() {
         numberOfAdjacentNodes++;
     }
     
+    /**
+     * 
+     * @param ind
+     * @return
+     */
     public Node getAdjacentNode(int ind) {
         return adjacentNodes[ind];
     }
     
+    /**
+     * 
+     * @param n
+     */
     public void setAdjacentNode(Node n) {
         this.adjacentNodes[getNumberOfAdjacentNodes()]=n;
         setNumberOfAdjacentNodes();
 //        System.out.println("setAdjacentNode " + getNumberOfAdjacentNodes() + this + "vierussolmu"+ n);
     }
     
+    /**
+     * 
+     * @param nodes
+     */
     public void setAdjacentNodes(Node [] nodes) {
         adjacentNodes= new Node[nodes.length];
         for (int i=0;i<nodes.length;i++) {
@@ -120,10 +179,18 @@ public class Node implements Comparable<Node>{
         }
     }
     
+    /**
+     * 
+     * @param n
+     */
     public void setCost(int n) {
         this.cost[getNumberOfAdjacentNodes()-1]=n;
     }
     
+    /**
+     * 
+     * @param costs
+     */
     public void setCosts(int [] costs) {
         cost= new int [costs.length];
         for (int i=0;i<costs.length;i++) {
@@ -135,6 +202,11 @@ public class Node implements Comparable<Node>{
         }
     }
     
+    /**
+     * 
+     * @param index
+     * @return
+     */
     public int getCost(int index) {
         return cost[index];
     }
@@ -143,6 +215,7 @@ public class Node implements Comparable<Node>{
      * Selostus.
      * rivi 2
      * @param p the node to the printed
+     * @param numberOfNodes  
      */
     public static void print(Node p, int numberOfNodes) {
         System.out.println("--------------------------");
@@ -158,6 +231,11 @@ public class Node implements Comparable<Node>{
         
     }
 
+    /**
+     * 
+     * @param t
+     * @return
+     */
     @Override
     public int compareTo(Node t) {
         if (this.distance < t.distance) {
@@ -169,6 +247,10 @@ public class Node implements Comparable<Node>{
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public String toString() {
         return "Solmu{" + "solmu=" + node + ", polku=" + path + ", distance=" + distance + ", kekoAlkio=" + heapPosition + ", vierusSolmut=" + adjacentNodes + ", kustannus=" + cost + '}';

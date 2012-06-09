@@ -15,6 +15,10 @@ public class MinHeap {
     private Node[] Heap;
     private int size;
     
+    /**
+     * 
+     * @param max
+     */
     public MinHeap(int max) {
 //	maxsize = max;
 //	Heap = new int[maxsize];
@@ -23,6 +27,10 @@ public class MinHeap {
 	Heap[0] = new Node(0,0,0,0);
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean isEmpty() {
         return (size == 0);
     }
@@ -51,6 +59,10 @@ public class MinHeap {
         Heap[pos2].setHeapNodeNumber(pos1);
     }
 
+    /**
+     * 
+     * @param solmu
+     */
     public void insert(Node solmu) {
         size++;
 	Heap[size] = solmu;
@@ -70,8 +82,13 @@ public class MinHeap {
     }
     
     
+    /**
+     * 
+     * @param n
+     * @param newkey
+     */
     public void decreaseKey(Node n, int newkey) {
-        System.out.println("DECREASEKEY: solmu distance newkey " + n.getNodeNumber() + " " + n.getDistance() + " " + newkey + " ");
+//        System.out.println("DECREASEKEY: solmu distance newkey " + n.getNodeNumber() + " " + n.getDistance() + " " + newkey + " ");
         if ( newkey <= n.getDistance()) {
             n.setDistance(newkey);
   //          pushdown(Heap[key]);
@@ -93,8 +110,8 @@ public class MinHeap {
         l++; r++;
         Node [] apu; 
         Node smallest = k;   
-       System.out.println("HPF1: size left right k.haeKekoAlkio()" +size +" "+ l + " " + r + " " + k.getHeapNodeNumber() );
-        System.out.println("HPF1:size left right Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
+   //    System.out.println("HPF1: size left right k.haeKekoAlkio()" +size +" "+ l + " " + r + " " + k.getHeapNodeNumber() );
+   //     System.out.println("HPF1:size left right Heap[l].haeDistance()Heap[r].haeDistance()k.haeDistance() k.haeSolmu()");
    //     System.out.println("HPF1:"+size+" "+l+" "+r+" "+Heap[l].haeDistance()+" "+Heap[r].haeDistance()+" "+k.haeDistance()+" "+k.haeSolmu());
         
         // Jos solmulla on vasemmanpuoleinen lapsi ja lapsen distance on pienempi kuin käsiteltävän solmun distance,
@@ -117,23 +134,9 @@ public class MinHeap {
     }
      
     
-    /* 
-     private void pushdown(int position) {
-//	Solmu dSolmu = solmut[position];
-        
-         int smallestchild;
-	while (!isleaf(position)) {
-	    smallestchild = leftchild(position);
-            System.out.print("Smallestchild = " + smallestchild);
-	    if ((smallestchild < size) && (Heap[smallestchild] > Heap[smallestchild+1]))
-		smallestchild = smallestchild + 1;
-	    if (Heap[position] <= Heap[smallestchild]) return;
-	    swap(position,smallestchild);
-	    position = smallestchild;
-	}
-  //      dSolmu.kekoAlkio(position);
-    }
-    */
+    /**
+     * 
+     */
     public void print() {
         System.out.println("KEKO:---------------------------------------------");
 	int i;
@@ -144,6 +147,10 @@ public class MinHeap {
 	
     }
 
+    /**
+     * 
+     * @return
+     */
     public Node deleteMin() {
    
 	Node min = Heap[1];
@@ -154,7 +161,5 @@ public class MinHeap {
 //	    pushdown(1);
             heapify(Heap[1]);
 	return min;
-    }
-
-    
+    }  
 }
