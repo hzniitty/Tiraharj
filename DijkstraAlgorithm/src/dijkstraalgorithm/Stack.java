@@ -5,7 +5,7 @@
 package dijkstraalgorithm;
 
 /**
- * This class represents stack.
+ * This class represents a stack. Stack is used to print the shortest paths from the start node to the other nodes.
  * @author fi72031
  */
 public class Stack {

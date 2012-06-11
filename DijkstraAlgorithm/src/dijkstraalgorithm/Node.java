@@ -5,7 +5,7 @@
 package dijkstraalgorithm;
 
 /**
- * This class represents a Node (Vertex) in the Graph. 
+ * This class represents a node (vertex) in the Graph.  
  * 
  * @author Hannu
  */
@@ -14,21 +14,18 @@ public class Node implements Comparable<Node>{
     private int distance;
     private int path;
     private int heapPosition;
-    /**
-     * 
-     */
-    public  Node [] adjacentNodes;
+    private  Node [] adjacentNodes;
     private int [] cost;
     private int numberOfAdjacentNodes;
     
     /**
      * 
-     * @param dijkstraNode Node number, used as a key
-     * @param nodeDistance
-     * @param nodePath
-     * @param nodeHeapPosition 
-     * @param nodeAdjacentNodes
-     * @param nodeCost  
+     * @param dijkstraNode Node number, used as a key.
+     * @param nodeDistance Shortest distance from the start node.
+     * @param nodePath From which node the cost is smallest.
+     * @param nodeHeapPosition Shows the nodes positions in a Heap.
+     * @param nodeAdjacentNodes Nodes adjacent nodes.
+     * @param nodeCost  Cost to the adjacent node.
      */
     public Node(int dijkstraNode, int nodeDistance, int nodePath, int nodeHeapPosition, Node[] nodeAdjacentNodes, int[] nodeCost) {
         node=dijkstraNode;
@@ -46,127 +43,132 @@ public class Node implements Comparable<Node>{
         numberOfAdjacentNodes=0;
     } 
     
-    // konstruktori
     /**
      * 
-     * @param dijkstraSolmu
+     * @param dijkstraNode
      * @param nodeDistance
      * @param nodePath
      * @param nodeHeapPosition
      */
-    public Node(int dijkstraSolmu, int nodeDistance, int nodePath, int nodeHeapPosition) {
-        node=dijkstraSolmu;
+    /*
+    public Node(int dijkstraNode, int nodeDistance, int nodePath, int nodeHeapPosition) {
+        node=dijkstraNode;
         distance=nodeDistance;
         path=nodePath;
         heapPosition=nodeHeapPosition;
         numberOfAdjacentNodes=0;
     } 
+    */
     
- /**
- * This method sets the number of the Node.
- * this is the second line.
- * @param index 
- * @author Hannu
- */
+    /**
+    * Sets the number (key) of the node.
+    *  
+    * @param index The number of the node.
+    * @author Hannu
+    */
     public void setNodeNumber(int index) {
         this.node=index;
     }
     
     /**
-     * 
-     * @return
+     * Returns the number (key) of the node
+     * @return node number
      */
+    
     public int getNodeNumber() {
         return node;
     }
     
     /**
-     * 
-     * @return
+     * Sets the distance of the node.
+     * @param dist
+     */
+    public void setDistance(int dist) {
+        this.distance=dist;
+    }
+   
+    /**
+     * Returns the distance of the node.
+     * @return Distance
      */
     public int getDistance() {
         return distance;
     }
     
     /**
-     * 
-     * @param dist
+     * Sets the position of the node in the heap
+     * @param heapPosition 
      */
-    public void setDistance(int dist) {
-        this.distance=dist;
+    public void setHeapNodeNumber(int heapPosition) { 
+        this.heapPosition = heapPosition;
     }
-    
+       
     /**
-     * 
-     * @return
+     * Returns the position of the node in the heap.
+     * @return Heap position
      */
     public int getHeapNodeNumber() {
         return heapPosition;
     }
     
-    /**
-     * 
-     * @param heapPosition
-     */
-    public void setHeapNodeNumber(int heapPosition) {
-     
-        this.heapPosition = heapPosition;
-    }
     
     /**
-     * 
-     * @param index
+     * Sets the shortest path to the node
+     * @param index The index of the node.
      */
     public void setPath(int index) {
         this.path=index;
     }
     
     /**
-     * 
-     * @return
+     * Returns the shortest path of the node.
+     * @return shortest path
      */
     public int getPath() {
         return path;
     }
-     
-    /**
-     * 
-     * @return
-     */
-    public int getNumberOfAdjacentNodes() {
-        return numberOfAdjacentNodes;
-    }
     
     /**
-     * 
+     * Sets the number of adjacent nodes.
      */
-    public void setNumberOfAdjacentNodes() {
+    private void setNumberOfAdjacentNodes() {
         numberOfAdjacentNodes++;
     }
     
     /**
-     * 
-     * @param ind
-     * @return
+     * Returns the number of the adjacent nodes.
+     * @return The number of the adjacent nodes.
+     */
+    public int getNumberOfAdjacentNodes() {
+        return numberOfAdjacentNodes;
+    }
+     
+    /**
+     * Sets an adjacent node.
+     * @param n Adjacent node reference
+     */
+    public void setAdjacentNode(Node n) {
+        this.adjacentNodes[getNumberOfAdjacentNodes()]=n;
+        setNumberOfAdjacentNodes();
+    }
+    
+    /**
+     * Returns the adjacent node.
+     * @param ind The index of the adjacent node.
+     * @return The adjacent node reference
      */
     public Node getAdjacentNode(int ind) {
         return adjacentNodes[ind];
     }
     
-    /**
-     * 
-     * @param n
-     */
-    public void setAdjacentNode(Node n) {
-        this.adjacentNodes[getNumberOfAdjacentNodes()]=n;
-        setNumberOfAdjacentNodes();
-//        System.out.println("setAdjacentNode " + getNumberOfAdjacentNodes() + this + "vierussolmu"+ n);
-    }
+    
     
     /**
      * 
      * @param nodes
      */
+    
+    /*
     public void setAdjacentNodes(Node [] nodes) {
         adjacentNodes= new Node[nodes.length];
         for (int i=0;i<nodes.length;i++) {
@@ -179,9 +181,11 @@ public class Node implements Comparable<Node>{
         }
     }
     
+    */
+    
     /**
-     * 
-     * @param n
+     * Sets adjacent node cost.
+     * @param n Adjacent node reference
      */
     public void setCost(int n) {
         this.cost[getNumberOfAdjacentNodes()-1]=n;
@@ -191,6 +195,7 @@ public class Node implements Comparable<Node>{
      * 
      * @param costs
      */
+    /*
     public void setCosts(int [] costs) {
         cost= new int [costs.length];
         for (int i=0;i<costs.length;i++) {
@@ -201,21 +206,21 @@ public class Node implements Comparable<Node>{
        //     }
         }
     }
+    */
     
     /**
-     * 
-     * @param index
-     * @return
+     * Returns the cost of the adjacent node.
+     * @param index The key of the adjacent node.
+     * @return The cost to the adjacent node.
      */
     public int getCost(int index) {
         return cost[index];
     }
     
     /**
-     * Selostus.
-     * rivi 2
-     * @param p the node to the printed
-     * @param numberOfNodes  
+     * Prints the node attributes in formatted output. Used for debugging purposes.
+     * @param p The node to the printed.
+     * @param numberOfNodes The maximum number of adjacent nodes.
      */
     public static void print(Node p, int numberOfNodes) {
         System.out.println("--------------------------");
@@ -232,10 +237,13 @@ public class Node implements Comparable<Node>{
     }
 
     /**
-     * 
-     * @param t
-     * @return
+     * Used for debugging purposes to compare distances of nodes.
+     * @param t - node to be compared.
+     * @return -1 if this objects distance is less than comparable node's distance.
+     * 0, if distances are equal. 
+     * 1, if comparable node's distance is bigger than this object's distance.
      */
+  
     @Override
     public int compareTo(Node t) {
         if (this.distance < t.distance) {
@@ -246,10 +254,10 @@ public class Node implements Comparable<Node>{
             return 0;
         }
     }
-
+    
     /**
-     * 
-     * @return
+     * Used for debugging purposes to show node attributes.
+     * @return Node attributes
      */
     @Override
     public String toString() {
