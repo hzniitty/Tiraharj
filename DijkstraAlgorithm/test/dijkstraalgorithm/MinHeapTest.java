@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author fi72031
+ * @author hzniitty
  */
 public class MinHeapTest {
     
@@ -60,6 +60,20 @@ public class MinHeapTest {
     }
 
     /**
+     * Test of deleteMin method, of class MinHeap.
+     */
+    @Test
+    public void testDeleteMin() {
+        System.out.println("deleteMin");
+        MinHeap instance = null;
+        Node expResult = null;
+        Node result = instance.deleteMin();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of decreaseKey method, of class MinHeap.
      */
     @Test
@@ -81,20 +95,6 @@ public class MinHeapTest {
         System.out.println("print");
         MinHeap instance = null;
         instance.print();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deleteMin method, of class MinHeap.
-     */
-    @Test
-    public void testDeleteMin() {
-        System.out.println("deleteMin");
-        MinHeap instance = null;
-        Node expResult = null;
-        Node result = instance.deleteMin();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

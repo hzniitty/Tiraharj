@@ -148,9 +148,12 @@ public class DijkstraAlgorithm {
     
     /**
      * Outputs the shortest paths from the start node to the other nodes.
+     * @param a 
+     * @param file file to be printed output (if selected)
      * @param nodes table containing all nodes in the graph.
      * @param numberOfNodes number of nodes in the graph.
      * @param startNode start node
+     * @throws FileNotFoundException  
      */
     public static void printShortestPaths(String a, String file, Node [] nodes, int numberOfNodes, int startNode) throws FileNotFoundException {
         PrintWriter outfile = new PrintWriter(new FileOutputStream(file+".out"),true);     
@@ -265,14 +268,19 @@ public class DijkstraAlgorithm {
      * @param args
      * @throws FileNotFoundException  
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         
 // Luetaan syötetiedosto
         String file;
+        String a="";
         Scanner lukija = new Scanner(System.in);
-        System.out.print("Tulostus tiedostoon (K/E)? ");
-        String a = lukija.next();
-        System.out.print("Luodaanko syötetiedosto (K/E)? ");
+        System.out.println("Tulostetaanko output (K/E)? ");
+        String output = lukija.next();
+        if (output.equals("K")) {
+            System.out.println("Tulostus tiedostoon (K/E)? ");
+            a = lukija.next();
+        }
+        System.out.println("Luodaanko syötetiedosto (K/E)? ");
         String b = lukija.next();
         if (b.equals("K")) {
             System.out.println("Anna tiedoston nimi:");
@@ -283,7 +291,13 @@ public class DijkstraAlgorithm {
             int E = lukija.nextInt();
             System.out.println("Anna aloitussolmu:");
             int S = lukija.nextInt();
-            PrintWriter testfile = new PrintWriter(new FileOutputStream(file),true);
+            PrintWriter testfile = null;
+            try {
+                testfile = new PrintWriter(new FileOutputStream(file),true);
+            } catch (FileNotFoundException fe) {
+                System.out.println("tiedostoa ei löytynyt");
+                System.exit(0);
+            }
             testfile.println("solmujen_lukumaara=" + V);
             testfile.println("aloitus_solmu=" + S);
             for (int i = 1; i <= E; i++) {
@@ -353,7 +367,8 @@ public class DijkstraAlgorithm {
         float elapsedTimeSec = elapsedTimeMillis/1000F;
         System.out.println("Suoritusaika ms sek: " + elapsedTimeMillis + " " + elapsedTimeSec);
 // Tulostetaan lyhimmät polut
-        printShortestPaths(a,file,solmut,numberOfNodes,startNode);
-    
+        if (output.equals("K")) {
+            printShortestPaths(a,file,solmut,numberOfNodes,startNode);
+        }
     } 
 }

@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author fi72031
+ * @author hzniitty
  */
 public class NodeTest {
     
@@ -60,6 +60,19 @@ public class NodeTest {
     }
 
     /**
+     * Test of setDistance method, of class Node.
+     */
+    @Test
+    public void testSetDistance() {
+        System.out.println("setDistance");
+        int dist = 0;
+        Node instance = null;
+        instance.setDistance(dist);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of getDistance method, of class Node.
      */
     @Test
@@ -74,14 +87,14 @@ public class NodeTest {
     }
 
     /**
-     * Test of setDistance method, of class Node.
+     * Test of setHeapNodeNumber method, of class Node.
      */
     @Test
-    public void testSetDistance() {
-        System.out.println("setDistance");
-        int dist = 0;
+    public void testSetHeapNodeNumber() {
+        System.out.println("setHeapNodeNumber");
+        int heapPosition = 0;
         Node instance = null;
-        instance.setDistance(dist);
+        instance.setHeapNodeNumber(heapPosition);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -96,19 +109,6 @@ public class NodeTest {
         int expResult = 0;
         int result = instance.getHeapNodeNumber();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setHeapNodeNumber method, of class Node.
-     */
-    @Test
-    public void testSetHeapNodeNumber() {
-        System.out.println("setHeapNodeNumber");
-        int heapPosition = 0;
-        Node instance = null;
-        instance.setHeapNodeNumber(heapPosition);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -155,6 +155,19 @@ public class NodeTest {
     }
 
     /**
+     * Test of setAdjacentNode method, of class Node.
+     */
+    @Test
+    public void testSetAdjacentNode() {
+        System.out.println("setAdjacentNode");
+        Node n = null;
+        Node instance = null;
+        instance.setAdjacentNode(n);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of getAdjacentNode method, of class Node.
      */
     @Test
@@ -170,27 +183,14 @@ public class NodeTest {
     }
 
     /**
-     * Test of setAdjacentNodes method, of class Node.
+     * Test of setCost method, of class Node.
      */
     @Test
-    public void testSetAdjacentNodes() {
-        System.out.println("setAdjacentNodes");
-        Node[] nodes = null;
+    public void testSetCost() {
+        System.out.println("setCost");
+        int n = 0;
         Node instance = null;
-        instance.setAdjacentNodes(nodes);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setCosts method, of class Node.
-     */
-    @Test
-    public void testSetCosts() {
-        System.out.println("setCosts");
-        int[] costs = null;
-        Node instance = null;
-        instance.setCosts(costs);
+        instance.setCost(n);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

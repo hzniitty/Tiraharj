@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author fi72031
+ * @author hzniitty
  */
 public class DijkstraAlgorithmTest {
     
@@ -36,37 +36,11 @@ public class DijkstraAlgorithmTest {
      * Test of readNumberOfNodes method, of class DijkstraAlgorithm.
      */
     @Test
-    public void testReadNumberOfNodes_noFile() {
-        System.out.println("readNumberOfNodes");
-        String file = "testiverkkoasdasd.txt";
-        int expResult = 0;
-        int result = DijkstraAlgorithm.readNumberOfNodes(file);
-        assertEquals(expResult, result);
-        
-    }
-    
-    /**
-     * Test of readNumberOfNodes method, of class DijkstraAlgorithm.
-     */
-    @Test
     public void testReadNumberOfNodes() {
         System.out.println("readNumberOfNodes");
-        String file = "testiverkko.txt";
-        int expResult = 6;
-        int result = DijkstraAlgorithm.readNumberOfNodes(file);
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of readAdjacentNodes method, of class DijkstraAlgorithm.
-     */
-    @Test
-    public void testReadAdjacentNodes() {
-        System.out.println("readAdjacentNodes");
         String file = "";
-        int[][] expResult = null;
-        int[][] result = DijkstraAlgorithm.readAdjacentNodes(file);
+        int expResult = 0;
+        int result = DijkstraAlgorithm.readNumberOfNodes(file);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -78,20 +52,26 @@ public class DijkstraAlgorithmTest {
     @Test
     public void testReadStartNode() {
         System.out.println("readStartNode");
-        String file = "testiverkko.txt";
-        int expResult = 1;
+        String file = "";
+        int expResult = 0;
         int result = DijkstraAlgorithm.readStartNode(file);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of printAdjacentMatrix method, of class DijkstraAlgorithm.
+     * Test of readAdjacentNodes method, of class DijkstraAlgorithm.
      */
     @Test
-    public void testPrintAdjacentMatrix() {
-        System.out.println("printAdjacentMatrix");
-        int[][] graph = null;
-        DijkstraAlgorithm.printAdjacentMatrix(graph);
+    public void testReadAdjacentNodes() {
+        System.out.println("readAdjacentNodes");
+        String file = "";
+        int numberOfNodes = 0;
+        Node[] nodes = null;
+        Node[] expResult = null;
+        Node[] result = DijkstraAlgorithm.readAdjacentNodes(file, numberOfNodes, nodes);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -100,12 +80,14 @@ public class DijkstraAlgorithmTest {
      * Test of printShortestPaths method, of class DijkstraAlgorithm.
      */
     @Test
-    public void testPrintShortestPaths() {
+    public void testPrintShortestPaths() throws Exception {
         System.out.println("printShortestPaths");
+        String a = "";
+        String file = "";
         Node[] nodes = null;
         int numberOfNodes = 0;
         int startNode = 0;
-        DijkstraAlgorithm.printShortestPaths(nodes, numberOfNodes, startNode);
+        DijkstraAlgorithm.printShortestPaths(a, file, nodes, numberOfNodes, startNode);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -114,88 +96,23 @@ public class DijkstraAlgorithmTest {
      * Test of Dijkstra method, of class DijkstraAlgorithm.
      */
     @Test
-    public void testDijkstra0() {
-        System.out.println("Dijkstra: 1 solmu, ei nuolta itseensä");
-        int[][] graph = { {0}
-                        };
-        int startNode = 1;
-        int numberOfNodes = 1;
-        Node[] expResult = new Node [numberOfNodes];
-        for (int i=0;i<numberOfNodes;i++) {
-            expResult[i] = new Node(i,i,0,i);
-        }
-        expResult[0].setPath(0);
-        Node[] result = DijkstraAlgorithm.Dijkstra(graph, startNode, numberOfNodes);
-        for (int i=0;i<numberOfNodes;i++) {
-            assertEquals(expResult[i].getPath(), result[i].getPath());
-        }
-    }
-    @Test
-    public void testDijkstra1() {
-        System.out.println("Dijkstra: 1 solmu, nuoli itseensä");
-        int[][] graph = { {5}
-                        };
-        int startNode = 1;
-        int numberOfNodes = 1;
-        Node[] expResult = new Node [numberOfNodes];
-        for (int i=0;i<numberOfNodes;i++) {
-            expResult[i] = new Node(i,i,0,i);
-        }
-        expResult[0].setPath(0);
-        Node[] result = DijkstraAlgorithm.Dijkstra(graph, startNode, numberOfNodes);
-        for (int i=0;i<numberOfNodes;i++) {
-            assertEquals(expResult[i].getPath(), result[i].getPath());
-        }
+    public void testDijkstra() {
+        System.out.println("Dijkstra");
+        Node[] dijkstranodes = null;
+        int startNode = 0;
+        int numberOfNodes = 0;
+        Node[] expResult = null;
+        Node[] result = DijkstraAlgorithm.Dijkstra(dijkstranodes, startNode, numberOfNodes);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
-    @Test
-    public void testDijkstra2() {
-        System.out.println("Dijkstra: 2 solmua");
-        int[][] graph = { {0,1},
-                          {1,0}
-                        };
-        int startNode = 1;
-        int numberOfNodes = 2;
-        Node[] expResult = new Node [numberOfNodes];
-        for (int i=0;i<numberOfNodes;i++) {
-            expResult[i] = new Node(i,i,0,i);
-        }
-        expResult[0].setPath(0);
-        expResult[1].setPath(1);
-    //    expResult[1].setPath(1);
-        Node[] result = DijkstraAlgorithm.Dijkstra(graph, startNode, numberOfNodes);
-        for (int i=0;i<numberOfNodes;i++) {
-            assertEquals(expResult[i].getPath(), result[i].getPath());
-        }
-    }
-    
-    @Test
-    public void testDijkstra3() {
-        System.out.println("Dijkstra: 2 solmua");
-        int[][] graph = { {0,1},
-                          {1,0}
-                        };
-        int startNode = 1;
-        int numberOfNodes = 2;
-        Node[] expResult = new Node [numberOfNodes];
-        for (int i=0;i<numberOfNodes;i++) {
-            expResult[i] = new Node(i,i,0,i);
-        }
-        expResult[0].setPath(0);
-        expResult[1].setPath(1);
-    //    expResult[1].setPath(1);
-        Node[] result = DijkstraAlgorithm.Dijkstra(graph, startNode, numberOfNodes);
-        for (int i=0;i<numberOfNodes;i++) {
-            assertEquals(expResult[i].getPath(), result[i].getPath());
-        }
-    }
-    
-    
     /**
      * Test of main method, of class DijkstraAlgorithm.
      */
     @Test
-    public void testMain() {
+    public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
         DijkstraAlgorithm.main(args);

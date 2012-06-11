@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author fi72031
+ * @author hzniitty
  */
 public class StackTest {
     
@@ -38,11 +38,12 @@ public class StackTest {
     @Test
     public void testPop() {
         System.out.println("pop");
-        Stack instance = new Stack(5);
-        instance.push(1);
-        int expResult = 1;
+        Stack instance = null;
+        int expResult = 0;
         int result = instance.pop();
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -52,7 +53,7 @@ public class StackTest {
     public void testPush() {
         System.out.println("push");
         int x = 0;
-        Stack instance = new Stack(5);
+        Stack instance = null;
         instance.push(x);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
