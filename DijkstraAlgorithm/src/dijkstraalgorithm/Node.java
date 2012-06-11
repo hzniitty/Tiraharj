@@ -60,20 +60,25 @@ public class Node implements Comparable<Node>{
     } 
     */
     
+    
+    
     /**
     * Sets the number (key) of the node.
     *  
     * @param index The number of the node.
     * @author Hannu
     */
+    /*
     public void setNodeNumber(int index) {
         this.node=index;
     }
-    
+    */
     /**
      * Returns the number (key) of the node
      * @return node number
      */
+    
+    
     
     public int getNodeNumber() {
         return node;

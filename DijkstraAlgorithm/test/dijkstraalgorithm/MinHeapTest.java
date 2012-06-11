@@ -33,44 +33,34 @@ public class MinHeapTest {
     }
 
     /**
-     * Test of isEmpty method, of class MinHeap.
+     * Test of isEmpty method, of class MinHeap. Heap is empty.
      */
     @Test
     public void testIsEmpty() {
         System.out.println("isEmpty");
-        MinHeap instance = null;
-        boolean expResult = false;
+        MinHeap instance = new MinHeap(2);
+        boolean expResult = true;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
+    
     /**
-     * Test of insert method, of class MinHeap.
+     * Test of insert  and deleteMin methods, of class MinHeap.
      */
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Node solmu = null;
-        MinHeap instance = null;
+        Node [] a;
+        int [ ] b;
+        a = new Node [1];
+        b = new int [1];
+        Node solmu = new Node(1,0,0,0,a,b);
+        Node result = solmu;
+        MinHeap instance = new MinHeap(2);
         instance.insert(solmu);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deleteMin method, of class MinHeap.
-     */
-    @Test
-    public void testDeleteMin() {
-        System.out.println("deleteMin");
-        MinHeap instance = null;
-        Node expResult = null;
-        Node result = instance.deleteMin();
+        Node expResult = instance.deleteMin();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -79,23 +69,18 @@ public class MinHeapTest {
     @Test
     public void testDecreaseKey() {
         System.out.println("decreaseKey");
-        Node n = null;
-        int newkey = 0;
-        MinHeap instance = null;
-        instance.decreaseKey(n, newkey);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Node [] a;
+        int [ ] b;
+        a = new Node [1];
+        b = new int [1];
+        Node solmu = new Node(1,20,20,20,a,b);  
+        MinHeap instance = new MinHeap(2);
+        instance.insert(solmu);
+        int newkey = 10;
+        instance.decreaseKey(solmu,10);
+        int result = solmu.getDistance();
+        int expResult = 10;
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test of print method, of class MinHeap.
-     */
-    @Test
-    public void testPrint() {
-        System.out.println("print");
-        MinHeap instance = null;
-        instance.print();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 }

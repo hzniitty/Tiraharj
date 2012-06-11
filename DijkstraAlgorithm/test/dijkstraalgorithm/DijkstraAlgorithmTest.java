@@ -38,12 +38,10 @@ public class DijkstraAlgorithmTest {
     @Test
     public void testReadNumberOfNodes() {
         System.out.println("readNumberOfNodes");
-        String file = "";
-        int expResult = 0;
+        String file = "verkko.txt";
+        int expResult = 6;
         int result = DijkstraAlgorithm.readNumberOfNodes(file);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -52,17 +50,16 @@ public class DijkstraAlgorithmTest {
     @Test
     public void testReadStartNode() {
         System.out.println("readStartNode");
-        String file = "";
-        int expResult = 0;
+        String file = "verkko.txt";
+        int expResult = 1;
         int result = DijkstraAlgorithm.readStartNode(file);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of readAdjacentNodes method, of class DijkstraAlgorithm.
      */
+    /*
     @Test
     public void testReadAdjacentNodes() {
         System.out.println("readAdjacentNodes");
@@ -75,10 +72,12 @@ public class DijkstraAlgorithmTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    */
+    
     /**
      * Test of printShortestPaths method, of class DijkstraAlgorithm.
      */
+    /*
     @Test
     public void testPrintShortestPaths() throws Exception {
         System.out.println("printShortestPaths");
@@ -91,10 +90,13 @@ public class DijkstraAlgorithmTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    * 
+    */
 
     /**
      * Test of Dijkstra method, of class DijkstraAlgorithm.
      */
+    /*
     @Test
     public void testDijkstra() {
         System.out.println("Dijkstra");
@@ -107,10 +109,12 @@ public class DijkstraAlgorithmTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    */
+    
     /**
      * Test of main method, of class DijkstraAlgorithm.
      */
+    /*
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
@@ -119,4 +123,6 @@ public class DijkstraAlgorithmTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    * 
+    */
 }

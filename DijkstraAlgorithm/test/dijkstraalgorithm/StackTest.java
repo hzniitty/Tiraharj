@@ -33,43 +33,40 @@ public class StackTest {
     }
 
     /**
-     * Test of pop method, of class Stack.
+     * Test of push and pop method, of class Stack.
      */
     @Test
     public void testPop() {
         System.out.println("pop");
-        Stack instance = null;
-        int expResult = 0;
+        Stack instance = new Stack(1);
+        instance.push(1);
+        int expResult = 1;
         int result = instance.pop();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of push method, of class Stack.
-     */
-    @Test
-    public void testPush() {
-        System.out.println("push");
-        int x = 0;
-        Stack instance = null;
-        instance.push(x);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isEmpty method, of class Stack.
+     * Test of isEmpty method, of class Stack. Stack is empty.
      */
     @Test
     public void testIsEmpty() {
         System.out.println("isEmpty");
-        Stack instance = null;
+        Stack instance = new Stack(1);
+        boolean expResult = true;
+        boolean result = instance.isEmpty();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of isEmpty method, of class Stack. Stack is not empty.
+     */
+    @Test
+    public void testIsEmpty2() {
+        System.out.println("isEmpty2");
+        Stack instance = new Stack(1);
+        instance.push(1);
         boolean expResult = false;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }

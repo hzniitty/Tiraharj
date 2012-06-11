@@ -1,0 +1,9 @@
+solmujen_lukumaara=6
+aloitus_solmu=1
+kaari=1,2,3
+kaari=1,4,9
+kaari=2,3,2
+kaari=3,4,5
+kaari=4,1,5
+kaari=4,3,12
+kaari=5,2,12

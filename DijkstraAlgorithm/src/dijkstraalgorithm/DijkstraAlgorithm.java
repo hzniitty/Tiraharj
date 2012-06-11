@@ -65,8 +65,7 @@ public class DijkstraAlgorithm {
                     rowsplit = row.split("=");
                     startNode = Integer.parseInt(rowsplit [1]);
                 } 
-            }
-         
+            }         
         }
         catch(Exception ex) {
         System.out.println("Virhe syötteen käsittelyssä" + ex);
@@ -88,21 +87,13 @@ public class DijkstraAlgorithm {
     public static Node [] readAdjacentNodes(String file, int numberOfNodes, Node [] nodes) {
         // int numberOfRows = 0;
         int [] [] adjacentMatrix = new int [0] [0];
-//        Node [] vierusSolmut;
-//        int [] kustannukset;
         try {
             Scanner scan = new Scanner(new File (file));
             int count = 0;
             String [] rowsplit;
             String [] values;
-//            adjacentMatrix  = new int [numberOfNodes] [numberOfNodes];
-//           vierusSolmut = new Node[numberOfNodes];
-//            kustannukset = new int[numberOfNodes];
-                    
             while(scan.hasNext()) {
-                String row = scan.nextLine();
-                // tiedoston tarkistukset tähän
-                
+                String row = scan.nextLine();                
                 if (row.startsWith("kaari")) {
                     rowsplit = row.split("=");
                     values = rowsplit[1].split(",");
@@ -111,9 +102,6 @@ public class DijkstraAlgorithm {
                     int arvo2 = Integer.parseInt(values[2]);
                     int node = --arvo0; 
                     int adjacentNode= --arvo1;
-//                    System.out.println("arvot=" + arvo0 + arvo1 + arvo2);
-//                    adjacentMatrix[node][adjacentNode]=arvo2;
-//                    System.out.println("arvot=" + node + adjacentNode + arvo2 + nodes[node] + nodes[adjacentNode]);
                     nodes[node].setAdjacentNode(nodes[adjacentNode]);
                     nodes[node].setCost(arvo2);
                     
@@ -126,25 +114,8 @@ public class DijkstraAlgorithm {
         }
         // return adjacentMatrix;  
         return nodes;
-    }
-    
-    
-    /**
-     * 
-     * @param graph
-     */
-    /*
-    public static void printAdjacentMatrix(int [] [] graph) {
-        for (int row=0;row<graph.length;++row) {
-            for (int column=0;column<graph[row].length;++column) {
-                System.out.print(graph[row][column] + "\t");
-            }
-            System.out.println();
-        }
-    }
-    
-    * 
-    */
+    } 
+   
     
     /**
      * Outputs the shortest paths from the start node to the other nodes.
@@ -155,8 +126,14 @@ public class DijkstraAlgorithm {
      * @param startNode start node
      * @throws FileNotFoundException  
      */
-    public static void printShortestPaths(String a, String file, Node [] nodes, int numberOfNodes, int startNode) throws FileNotFoundException {
-        PrintWriter outfile = new PrintWriter(new FileOutputStream(file+".out"),true);     
+    public static void printShortestPaths(String a, String file, Node [] nodes, int numberOfNodes, int startNode) {
+        PrintWriter outfile = null;
+        try {
+                outfile = new PrintWriter(new FileOutputStream(file+".out"),true);
+            } catch (FileNotFoundException fe) {
+                System.out.println("Tiedostoa ei löytynyt");
+                System.exit(0);
+            }
         if (a.equals("K")) {
              outfile.println("solmujen_lukumaara=" + numberOfNodes);
         }
@@ -171,13 +148,9 @@ public class DijkstraAlgorithm {
             Node s = nodes[i];
             if (i!=startNode-1) {
                 while (s.getPath() != 0) {
-                    
-//                    System.out.println("Push BEGIN:------------------------");
-//                    Solmu.print(s);
                     int u = s.getPath();
                     if (u != 0)
                         p.push(u);
-//                    System.out.println("Push END:------------------------");
                     s = nodes[u-1];
                 }
                 if (a.equals("K"))
@@ -270,7 +243,7 @@ public class DijkstraAlgorithm {
      */
     public static void main(String[] args) {
         
-// Luetaan syötetiedosto
+        // Luetaan syötetiedosto
         String file;
         String a="";
         Scanner lukija = new Scanner(System.in);
@@ -331,9 +304,9 @@ public class DijkstraAlgorithm {
             return;
         }
         
-// Aloitusaika        
+        // Start time        
         long start = System.currentTimeMillis();
-// Luodaan solmut
+        // Creation of nodes
         Node [] nodes;
         Node [] adjacentNodes;
         nodes = new Node[numberOfNodes];
@@ -344,29 +317,26 @@ public class DijkstraAlgorithm {
             nodes[i-1] = v;
         }
         Node [] dijkstranodes = readAdjacentNodes(file, numberOfNodes, nodes);
-
         
-// DEBUG: Vierusmatriisin tulostus
-//        printAdjacentMatrix(graph);
-        
-// Lasketaan solmujen lyhimmät polut       
+        // Performs Dijkstra's algorithm       
         Node [] solmut = Dijkstra(dijkstranodes,startNode,numberOfNodes);
         
-// DEBUG: Tulostetaan solmut
-/*
+        // DEBUG: Outputs nodes
+        /*
         System.out.println("SOLMUT ------------------");
         for (int i=0;i<numberOfNodes;i++) {  
             Node.print(solmut[i],numberOfNodes);
         }
         System.out.println("SOLMUT LOPPU ------------");
         
-  * 
-  */
+         * 
+        */
         
         long elapsedTimeMillis = System.currentTimeMillis()-start;
         float elapsedTimeSec = elapsedTimeMillis/1000F;
+        
         System.out.println("Suoritusaika ms sek: " + elapsedTimeMillis + " " + elapsedTimeSec);
-// Tulostetaan lyhimmät polut
+        // Outputs the shortest paths
         if (output.equals("K")) {
             printShortestPaths(a,file,solmut,numberOfNodes,startNode);
         }
